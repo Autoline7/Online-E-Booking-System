@@ -52,6 +52,7 @@ const AdminSignUp = () => {
 
 
   return (
+    <div id="Log-In-Sign-Up" >
       <div className="login-container">
           <h2 className="form-title">Sign Up with</h2>
           <SocialSignUp />
@@ -73,6 +74,7 @@ const AdminSignUp = () => {
            <p className="signup-text">Already have an account? <a href="/Log-In">Login now</a></p>
           
         </div>
+      </div>
   )
 }
 

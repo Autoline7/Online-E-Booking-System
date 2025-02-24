@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import "../LogIn-SignUp.css";
+import SimpleAlert from "../SimpleAlert";
 
 const SignUp = () => {
     const[name , setName] = useState("");
@@ -15,6 +16,14 @@ const SignUp = () => {
 
     const[user, setUser] = useState(null);
     const navigate = useNavigate();
+
+    const[showAlert, setShowAlert] = useState(false);
+
+    const handleAlert = () =>{
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+    };
+
 
     useEffect(() => {
       onAuthStateChanged(auth, (user) => {
@@ -40,9 +49,8 @@ const SignUp = () => {
           createdAt: new Date(),
           role : "user",
         });
-    
-        console.log("User signed up & data stored in Firestore:", user);
-        navigate('/User-Dashboard');
+        handleAlert();
+        setTimeout(() => navigate('/User-Dashboard'), 3000)
       } catch (error) {
         console.error("Error signing up:", error.message);
       }
@@ -59,16 +67,20 @@ const SignUp = () => {
           
           <h2 className="form-title">Create Account</h2>
           <form onSubmit={signUp} action="#" className="login-form">
-            <InputField value={name}  type="text" placeholder="Name" icon="person" onChange={(e) => setName(e.target.value)}  />
+            <p className="registration__fields">* Required *</p>
+            <InputField value={name}  type="text" placeholder="Name" icon="person" onChange={(e) => setName(e.target.value)}  /> 
+            <p className="registration__fields">* Required *</p>
             <InputField value={email} type="email" placeholder="Email address" icon="mail" onChange={(e) => setEmail(e.target.value)}  />
+            <p className="registration__fields">* Required *</p>
             <InputField value={password} type="password" placeholder="Password.....(6 >= characters)" icon="lock" onChange={(e) => setPassword(e.target.value)}  />
+            <p className="registration__fields">* Required *</p>
             <InputField value={phone} type="tel" placeholder="Phone Number" icon="call" onChange={(e) => setPhone(e.target.value)} />
             
              <button type="submit" className="login-button">Create Account</button>
            </form>
 
            <p className="signup-text">Already have an account? <a href="/Log-In">Login now</a></p>
-          
+           {showAlert && <SimpleAlert />}
         </div>
       </div>
   )

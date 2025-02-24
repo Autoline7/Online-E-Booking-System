@@ -1,8 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { auth, db } from "../firebase/firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 import "./HomePage.css";
 
 const moviesData = [
@@ -18,21 +15,8 @@ const moviesData = [
   { id: 10, title: "Avengers: Endgame", category: "Currently Running", trailer: "https://www.youtube.com/embed/TcMBFSGVi1c" }
 ];
 
-const UserPage = () => {
+const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [userName, setUserName] = useState("");
-
-  useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userDocRef = doc(db, "users", user.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        if (userDocSnap.exists()) {
-          setUserName(userDocSnap.data().name);
-        }
-      }
-    });
-  }, []);
 
   const filteredMovies = moviesData.filter((movie) =>
     movie.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -41,7 +25,11 @@ const UserPage = () => {
   return (
     <div className="home-container">
       <header className="header">
-        <h1>Hi, {userName}</h1>
+        <h1>Welcome to Cinema E-Booking</h1>
+        <div className="auth-buttons">
+          <Link to="/Log-In" className="auth-button">Login</Link>
+          <Link to="/Sign-Up" className="auth-button">Sign Up</Link>
+        </div>
       </header>
       <input
         type="text"
@@ -50,7 +38,7 @@ const UserPage = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-bar"
       />
-      <h2 className="user__h2">Currently Running</h2>
+      <h2>Currently Running</h2>
       <div className="movies-section">
         {filteredMovies
           .filter((movie) => movie.category === "Currently Running")
@@ -94,4 +82,4 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export default HomePage;

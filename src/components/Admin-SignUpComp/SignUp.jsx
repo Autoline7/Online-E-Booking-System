@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import "../LogIn-SignUp.css";
+import SimpleAlert from "../SimpleAlert";
 
 const AdminSignUp = () => {
     const[name , setName] = useState("");
@@ -16,6 +17,7 @@ const AdminSignUp = () => {
 
     const[user, setUser] = useState(null);
     const navigate = useNavigate();
+    const[showAlert, setShowAlert] = useState(false);
 
 
     useEffect(() => {
@@ -25,6 +27,12 @@ const AdminSignUp = () => {
         }
       })
     }, []);
+    
+
+    const handleAlert = () =>{
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+    };
 
 
     async function signUp(event) {
@@ -43,8 +51,9 @@ const AdminSignUp = () => {
           role : "admin",
         });
     
-        console.log("User signed up & data stored in Firestore:", user);
-        navigate('/Admin-Dashboard');
+        handleAlert();
+        setTimeout(() => navigate('/Admin-DashBoard-Manage-Movies'), 3000)
+        
       } catch (error) {
         console.error("Error signing up:", error.message);
       }
@@ -72,7 +81,7 @@ const AdminSignUp = () => {
            </form>
 
            <p className="signup-text">Already have an account? <a href="/Log-In">Login now</a></p>
-          
+           {showAlert && <SimpleAlert />}
         </div>
       </div>
   )

@@ -26,7 +26,7 @@ const LogIn = () => {
 
                 if(userData.role === "admin"){
                   console.log("Redirecting to Admin Dashboard...");
-                  navigate('/Admin-Dashboard');
+                  navigate('/Admin-DashBoard-Manage-Movies');
                 }
                 else {
                   console.log("Redirecting to User Dashboard...");

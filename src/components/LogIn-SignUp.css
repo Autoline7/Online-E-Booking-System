@@ -156,3 +156,7 @@
   .login-container a:hover {
     text-decoration: underline;
   }
+
+  .registration__fields{
+    font-size: 12px;
+  }

@@ -70,10 +70,15 @@ const AdminSignUp = () => {
           
           <h2 className="form-title">Create Account</h2>
           <form onSubmit={signUp} action="#" className="login-form">
+            <p className="registration__fields">* Required *</p>
             <InputField value={name}  type="text" placeholder="Name" icon="person" onChange={(e) => setName(e.target.value)}  />
+            <p className="registration__fields">* Required *</p>
             <InputField value={email} type="email" placeholder="Email address" icon="mail" onChange={(e) => setEmail(e.target.value)}  />
+            <p className="registration__fields">* Required *</p>
             <InputField value={password} type="password" placeholder="Password.....(6 >= characters)" icon="lock" onChange={(e) => setPassword(e.target.value)}  />
+            <p className="registration__fields">* Required *</p>
             <InputField value={phone} type="tel" placeholder="Phone Number" icon="call" onChange={(e) => setPhone(e.target.value)} />
+            <p className="registration__fields">* Required *</p>
             <InputField value={givenSecPass} type="password" placeholder="Admin Security Password.....(6 >= characters)" icon="lock" onChange={(e) => setGivenSecPass(e.target.value)}  />
 
 
